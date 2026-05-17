@@ -248,13 +248,6 @@ type loaderDeps = (opts: { search: TFullSearchSchema }) => Record<string, any>
 - Defaults to `routerOptions.defaultPendingMinMs` which defaults to `500`
 - The minimum amount of time in milliseconds that the pending component will be shown for if it is shown. This is useful to prevent the pending component from flashing on the screen for a split second.
 
-### `preloadMaxAge` property
-
-- Type: `number`
-- Optional
-- Defaults to `30_000` ms (30 seconds)
-- The maximum amount of time in milliseconds that a route's preloaded route data will be cached for. If a route is not matched within this time frame, its loader data will be discarded.
-
 ### `preSearchFilters` property (⚠️ deprecated, use `search.middlewares` instead)
 
 - Type: `((search: TFullSearchSchema) => TFullSearchSchema)[]`
