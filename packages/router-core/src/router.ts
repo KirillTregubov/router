@@ -167,24 +167,24 @@ export interface RouterOptions<
    *
    * If not provided, a new createBrowserHistory instance will be created and used.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#history-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/history-types)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#history-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/history-types)
    */
   history?: TRouterHistory
   /**
    * A function that will be used to stringify search params when generating links.
    *
    * @default defaultStringifySearch
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#stringifysearch-method)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/custom-search-param-serialization)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#stringifysearch-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/custom-search-param-serialization)
    */
   stringifySearch?: SearchSerializer
   /**
    * A function that will be used to parse search params when parsing the current location.
    *
    * @default defaultParseSearch
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#parsesearch-method)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/custom-search-param-serialization)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#parsesearch-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/custom-search-param-serialization)
    */
   parseSearch?: SearchParser
   /**
@@ -195,48 +195,48 @@ export interface RouterOptions<
    * If `'viewport'`, routes will be preloaded by default when they are within the viewport.
    *
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpreload-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/preloading)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpreload-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/preloading)
    */
   defaultPreload?: false | 'intent' | 'viewport' | 'render'
   /**
    * The delay in milliseconds that a route must be hovered over or touched before it is preloaded.
    *
    * @default 50
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpreloaddelay-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/preloading#preload-delay)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpreloaddelay-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/preloading#preload-delay)
    */
   defaultPreloadDelay?: number
   /**
    * The default `preloadIntentProximity` a route should use if no preloadIntentProximity is provided.
    *
    * @default 0
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpreloadintentproximity-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/preloading#preload-intent-proximity)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpreloadintentproximity-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/preloading#preload-intent-proximity)
    */
   defaultPreloadIntentProximity?: number
   /**
    * The default `pendingMs` a route should use if no pendingMs is provided.
    *
    * @default 1000
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpendingms-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#avoiding-pending-component-flash)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpendingms-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#avoiding-pending-component-flash)
    */
   defaultPendingMs?: number
   /**
    * The default `pendingMinMs` a route should use if no pendingMinMs is provided.
    *
    * @default 500
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpendingminms-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#avoiding-pending-component-flash)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpendingminms-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#avoiding-pending-component-flash)
    */
   defaultPendingMinMs?: number
   /**
    * The default `staleTime` a route should use if no staleTime is provided. This is the time in milliseconds that a route will be considered fresh.
    *
    * @default 0
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultstaletime-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#key-options)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultstaletime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#key-options)
    */
   defaultStaleTime?: number
   /**
@@ -252,16 +252,16 @@ export interface RouterOptions<
    * The default `preloadStaleTime` a route should use if no preloadStaleTime is provided.
    *
    * @default 30_000 `(30 seconds)`
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpreloadstaletime-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/preloading)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpreloadstaletime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/preloading)
    */
   defaultPreloadStaleTime?: number
   /**
-   * The default `defaultPreloadGcTime` a route should use if no preloadGcTime is provided.
+   * The default `preloadGcTime` a route should use if no preloadGcTime is provided.
    *
    * @default 1_800_000 `(30 minutes)`
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultpreloadgctime-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/preloading)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultpreloadgctime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/preloading)
    */
   defaultPreloadGcTime?: number
   /**
@@ -271,7 +271,7 @@ export interface RouterOptions<
    *
    * See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) for more information on how this function works.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultviewtransition-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultviewtransition-property)
    */
   defaultViewTransition?: boolean | ViewTransitionOptions
   /**
@@ -279,43 +279,43 @@ export interface RouterOptions<
    *
    * See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) for more information on `ScrollIntoViewOptions`.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaulthashscrollintoview-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaulthashscrollintoview-property)
    */
   defaultHashScrollIntoView?: boolean | ScrollIntoViewOptions
   /**
    * @default 'fuzzy'
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#notfoundmode-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/not-found-errors#the-notfoundmode-option)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#notfoundmode-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/not-found-errors#the-notfoundmode-option)
    */
   notFoundMode?: 'root' | 'fuzzy'
   /**
    * The default `gcTime` a route should use if no gcTime is provided.
    *
    * @default 1_800_000 `(30 minutes)`
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultgctime-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#key-options)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultgctime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#key-options)
    */
   defaultGcTime?: number
   /**
    * If `true`, all routes will be matched as case-sensitive.
    *
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#casesensitive-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#casesensitive-property)
    */
   caseSensitive?: boolean
   /**
    *
    * The route tree that will be used to configure the router instance.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#routetree-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/routing/route-trees)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#routetree-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/routing/route-trees)
    */
   routeTree?: TRouteTree
   /**
    * The basepath for then entire router. This is useful for mounting a router instance at a subpath.
    * ```
    * @default '/'
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#basepath-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#basepath-property)
    */
   basepath?: string
   /**
@@ -323,10 +323,10 @@ export interface RouterOptions<
    *
    * This can be used to provide a context to all routes in the tree without having to provide it to each route individually.
    *
-   * Optional or required if the root route was created with [`createRootRouteWithContext()`](https://tanstack.com/router/latest/docs/framework/react/api/router/createRootRouteWithContextFunction).
+   * Optional or required if the root route was created with [`createRootRouteWithContext()`](https://tanstack.com/router/latest/docs/api/router/createRootRouteWithContextFunction).
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#context-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/router-context)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#context-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/router-context)
    */
   context?: InferRouterContext<TRouteTree>
 
@@ -337,8 +337,8 @@ export interface RouterOptions<
    *
    * The return value of this function will be serialized and stored in the router's dehydrated state.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#dehydrate-method)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/external-data-loading#critical-dehydrationhydration)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#dehydrate-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/external-data-loading#critical-dehydrationhydration)
    */
   dehydrate?: () => Constrain<
     TDehydrated,
@@ -347,8 +347,8 @@ export interface RouterOptions<
   /**
    * A function that will be called when the router is hydrated.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#hydrate-method)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/external-data-loading#critical-dehydrationhydration)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#hydrate-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/external-data-loading#critical-dehydrationhydration)
    */
   hydrate?: (dehydrated: TDehydrated) => Awaitable<void>
   /**
@@ -356,8 +356,8 @@ export interface RouterOptions<
    *
    * Route masking is when you display a route at a different path than the one it is configured to match, like a modal popup that when shared will unmask to the modal's content instead of the modal's context.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#routemasks-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/route-masking)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#routemasks-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/route-masking)
    */
   routeMasks?: Array<RouteMask<TRouteTree>>
   /**
@@ -366,8 +366,8 @@ export interface RouterOptions<
    * This can be overridden on a per-mask basis by setting the `unmaskOnReload` option on the mask, or on a per-navigation basis by setting the `unmaskOnReload` option in the `Navigate` options.
    *
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#unmaskonreload-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/route-masking#unmasking-on-page-reload)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#unmaskonreload-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/route-masking#unmasking-on-page-reload)
    */
   unmaskOnReload?: boolean
 
@@ -376,7 +376,7 @@ export interface RouterOptions<
    *
    * @deprecated
    * See https://tanstack.com/router/v1/docs/guide/not-found-errors#migrating-from-notfoundroute for more info.
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#notfoundroute-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#notfoundroute-property)
    */
   notFoundRoute?: AnyRoute
   /**
@@ -387,14 +387,14 @@ export interface RouterOptions<
    * - `'preserve'` will not modify the trailing slash.
    *
    * @default 'never'
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#trailingslash-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#trailingslash-property)
    */
   trailingSlash?: TTrailingSlashOption
   /**
    * While usually automatic, sometimes it can be useful to force the router into a server-side state, e.g. when using the router in a non-browser environment that has access to a global.document object.
    *
    * @default typeof document !== 'undefined'
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#isserver-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#isserver-property)
    */
   isServer?: boolean
 
@@ -420,7 +420,7 @@ export interface RouterOptions<
      * Configures how unknown search params (= not returned by any `validateSearch`) are treated.
      *
      * @default false
-     * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#search.strict-property)
+     * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#search.strict-property)
      */
     strict?: boolean
   }
@@ -428,15 +428,15 @@ export interface RouterOptions<
   /**
    * Configures whether structural sharing is enabled by default for fine-grained selectors.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#defaultstructuralsharing-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#defaultstructuralsharing-property)
    */
   defaultStructuralSharing?: TDefaultStructuralSharingOption
 
   /**
    * Configures which URI characters are allowed in path params that would ordinarily be escaped by encodeURIComponent.
    *
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#pathparamsallowedcharacters-property)
-   * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/path-params#allowed-characters)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#pathparamsallowedcharacters-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/path-params#allowed-characters)
    */
   pathParamsAllowedCharacters?: Array<
     ';' | ':' | '@' | '&' | '=' | '+' | '$' | ','
@@ -488,7 +488,7 @@ export interface RouterOptions<
    * Absolute URLs with protocols not in this list will be rejected.
    *
    * @default DEFAULT_PROTOCOL_ALLOWLIST (http:, https:, mailto:, tel:)
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/RouterOptionsType#protocolallowlist-property)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouterOptionsType#protocolallowlist-property)
    */
   protocolAllowlist?: Array<string>
 
@@ -925,7 +925,7 @@ declare global {
  * used by framework adapters (React/Solid). Prefer framework helpers like
  * `createRouter` in app code.
  *
- * @link https://tanstack.com/router/latest/docs/framework/react/api/router/RouterType
+ * @link https://tanstack.com/router/latest/docs/api/router/RouterType
  */
 export class RouterCore<
   in out TRouteTree extends AnyRoute,
@@ -1235,7 +1235,7 @@ export class RouterCore<
    * Subscribe to router lifecycle events like `onBeforeNavigate`, `onLoad`,
    * `onResolved`, etc. Returns an unsubscribe function.
    *
-   * @link https://tanstack.com/router/latest/docs/framework/react/api/router/RouterEventsType
+   * @link https://tanstack.com/router/latest/docs/api/router/RouterEventsType
    */
   subscribe: SubscribeFn = (eventType, fn) => {
     const listener: RouterListener<any> = {
@@ -1795,7 +1795,7 @@ export class RouterCore<
    * Resolves `to`/`from`, params/search/hash/state, applies search validation
    * and middlewares, and returns a stable, stringified location object.
    *
-   * @link https://tanstack.com/router/latest/docs/framework/react/api/router/RouterType#buildlocation-method
+   * @link https://tanstack.com/router/latest/docs/api/router/RouterType#buildlocation-method
    */
   buildLocation: BuildLocationFn = (opts) => {
     const build = (
@@ -2270,7 +2270,7 @@ export class RouterCore<
    * or an absolute `href` is provided, performs a full document navigation.
    * Otherwise, builds and commits a client-side location.
    *
-   * @link https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType
+   * @link https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType
    */
   navigate: NavigateFn = async ({
     to,

@@ -59,9 +59,22 @@ export type PreloadableObj = { preload?: () => Promise<void> }
 
 export type RoutePathOptions<TCustomId, TPath> =
   | {
+      /**
+       * The path segment that will be used to match the route.
+       *
+       * Required, unless an `id` is provided to configure the route as a pathless layout route.
+       *
+       * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#path-property)
+       */
       path: TPath
     }
   | {
+      /**
+       * The unique identifier for the route if it is to be configured as a pathless layout route. If provided, the route will not match against the location pathname and its routes will be flattened into its parent route for matching.
+       *
+       * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#id-property)
+       * @link [Guide](https://tanstack.com/router/latest/docs/routing/code-based-routing#pathless-layout-routes)
+       */
       id: TCustomId
     }
 
@@ -187,14 +200,25 @@ export type StringifyParamsFn<in out TPath extends string, in out TParams> = (
 
 export type ParamsOptions<in out TPath extends string, in out TParams> = {
   params?: {
+    /**
+     * A function that will be called when this route is matched and passed the raw params from the current location and return valid parsed params. If this function throws, the route will be put into an error state and the error will be thrown during render. If this function returns parsed params, its return value will be used as the route's params and the return type will be inferred into the rest of the router.
+     *
+     * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#paramsparse-method)
+     */
     parse?: ParseParamsFn<TPath, TParams> & ValidateParsedParams<TPath, TParams>
     /**
-     * When multiple route candidates use `params.parse` during matching,
-     * higher priorities are tried first.
+     * Controls the matching order when multiple route candidates with `params.parse` can match the same URL segment. Higher numbers are tried first. If a higher-priority route's `params.parse` returns false, matching continues to the next candidate.
+     *
+     * This only affects competing candidates that use `params.parse`; normal route specificity still applies, so static routes continue to match before dynamic, optional, or wildcard routes.
      *
      * @default 0
      */
     priority?: number
+    /**
+     * A function that will be called when this route's parsed params are being used to build a location. This function should return a valid object of `Record<string, string>` mapping.
+     *
+     * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#paramsstringify-method)
+     */
     stringify?: StringifyParamsFn<TPath, TParams>
   }
 
@@ -825,7 +849,7 @@ export interface Route<
    * Enables relative redirects like `Route.redirect({ to: './overview' })`.
    * @param opts Redirect options (same as `redirect()` but without `from`)
    * @returns A redirect Response that can be thrown from loaders/beforeLoad
-   * @link https://tanstack.com/router/latest/docs/framework/react/api/router/redirectFunction
+   * @link https://tanstack.com/router/latest/docs/api/router/redirectFunction
    */
   redirect: RedirectFnRoute<TFullPath>
 }
@@ -970,8 +994,28 @@ export interface FilebaseRouteOptionsInterface<
   TServerMiddlewares = unknown,
   THandlers = undefined,
 > {
+  /**
+   * A function that will be called when this route is matched and passed the raw search params from the current location and return valid parsed search params. If this function throws, the route will be put into an error state and the error will be thrown during render. If this function does not throw, its return value will be used as the route's search params and the return type will be inferred into the rest of the router.
+   *
+   * Optionally, the parameter type can be tagged with the `SearchSchemaInput` type like this: `(searchParams: TSearchSchemaInput & SearchSchemaInput) => TSearchSchema`. If this tag is present, `TSearchSchemaInput` will be used to type the `search` property of `<Link />` and `navigate()` instead of `TSearchSchema`. The difference between `TSearchSchemaInput` and `TSearchSchema` can be useful, for example, to express optional search parameters.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#validatesearch-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/search-params#validating-search-params)
+   */
   validateSearch?: Constrain<TSearchValidator, AnyValidator, DefaultValidator>
 
+  /**
+   * Controls whether the route's loader should reload on subsequent matches. This offers finer control beyond `staleTime` and `loaderDeps`, and is conceptually similar to Remix's `shouldLoad` option.
+   *
+   * - If `false` or returns `false`, the route match's loader data will not be reloaded on subsequent matches.
+   *
+   * - If `true` or returns `true`, the route match's loader data will be reloaded on subsequent matches.
+   *
+   * - If `undefined` or returns `undefined`, the route match's loader data will adhere to the default stale-while-revalidate behavior.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#shouldreload-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#using-shouldreload-and-gctime-to-opt-out-of-caching)
+   */
   shouldReload?:
     | boolean
     | ((
@@ -1011,10 +1055,18 @@ export interface FilebaseRouteOptionsInterface<
       ) => Awaitable<undefined | SSROption>)
   >
 
-  // This async function is called before a route is loaded.
-  // If an error is thrown here, the route's loader will not be called.
-  // If thrown during a navigation, the navigation will be cancelled and the error will be passed to the `onError` function.
-  // If thrown during a preload event, the error will be logged to the console.
+  /**
+   * This async function is called before a route is loaded. If an error is thrown here, the route's loader will not be called and the route will not render. If thrown during a navigation, the navigation will be canceled and the error will be passed to the `onError` function. If thrown during a preload event, the error will be logged to the console and the preload will fail.
+   *
+   * If this function returns a promise, the route will be put into a pending state and cause rendering to suspend until the promise resolves. If this route's pendingMs threshold is reached, the `pendingComponent` will be shown until it resolves. If the promise rejects, the route will be put into an error state and the error will be thrown during render.
+   *
+   * If this function returns a `TRouteContext` object, that object will be merged into the route's context and be made available in the `loader` and other related route components/methods.
+   *
+   * It's common to use this function to check if a user is authenticated and redirect them to a login page if they are not. To do this, you can either return or throw a `redirect` object from this function.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#beforeload-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/authenticated-routes#the-routebeforeload-option)
+   */
   beforeLoad?: Constrain<
     TBeforeLoadFn,
     (
@@ -1037,10 +1089,23 @@ export interface FilebaseRouteOptionsInterface<
     >
   >
 
+  /**
+   * A function that will be called before this route is matched to provide additional unique identification to the route match and serve as a dependency tracker for when the match should be reloaded. It should return any serializable value that can uniquely identify the route match from navigation to navigation.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#loaderdeps-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#using-loaderdeps-to-access-search-params)
+   */
   loaderDeps?: (
     opts: FullSearchSchemaOption<TParentRoute, TSearchValidator>,
   ) => TLoaderDeps
 
+  /**
+   * A function that will be called to determine whether a route component shall be remounted after navigation. If this function returns a different value than previously, it will remount.
+   *
+   * The return value needs to be JSON serializable.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#remountdeps-method)
+   */
   remountDeps?: Constrain<
     TRemountDepsFn,
     (
@@ -1053,6 +1118,24 @@ export interface FilebaseRouteOptionsInterface<
     ) => any
   >
 
+  /**
+   * This async function is called when a route is matched and passed the route's match object. If an error is thrown here, the route will be put into an error state and the error will be thrown during render. If thrown during a navigation, the navigation will be canceled and the error will be passed to the `onError` function. If thrown during a preload event, the error will be logged to the console and the preload will fail.
+   *
+   * If this function returns a promise, the route will be put into a pending state and cause rendering to suspend until the promise resolves. If this route's pendingMs threshold is reached, the `pendingComponent` will be shown until it resolves. If the promise rejects, the route will be put into an error state and the error will be thrown during render.
+   *
+   * If this function returns a `TLoaderData` object, that object will be stored on the route match until the route match is no longer active. It can be accessed using the `useLoaderData` hook in any component that is a child of the route match before another `<Outlet />` is rendered.
+   *
+   * Deps must be returned by your `loaderDeps` function in order to appear.
+   *
+   * Use the object form to configure loader-specific behavior like `staleReloadMode`.
+   *
+   * - `staleReloadMode: 'background'` preserves stale-while-revalidate behavior for stale successful matches.
+   *
+   * - `staleReloadMode: 'blocking'` waits for the stale loader reload to complete before continuing.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#loader-method)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#route-loaders)
+   */
   loader?: Constrain<
     TLoaderFn,
     | RouteLoaderFn<
@@ -1116,6 +1199,11 @@ export type BaseRouteOptions<
     TServerMiddlewares,
     THandlers
   > & {
+    /**
+     * A function that returns the parent route of the route being created. This is required to provide full type safety to child route configurations and to ensure that the route tree is built correctly.
+     *
+     * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#getparentroute-method)
+     */
     getParentRoute: () => TParentRoute
   }
 
@@ -1261,25 +1349,83 @@ export interface UpdatableRouteOptions<
 >
   extends UpdatableStaticRouteOption, UpdatableRouteOptionsExtensions {
   /**
-   * If true, this route will be matched as case-sensitive
+   * If `true`, this route will be matched as case-sensitive.
    *
-   * @default false
+   * @default routerOptions.caseSensitive
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#casesensitive-property)
    */
   caseSensitive?: boolean
   /**
-   * If true, this route will be forcefully wrapped in a suspense boundary
+   * If `true`, this route will be forcefully wrapped in a suspense boundary, regardless if a reason is found to do so from inspecting its provided components.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#wrapinsuspense-property)
    */
   wrapInSuspense?: boolean
-  // The content to be rendered when the route is matched. If no component is provided, defaults to `<Outlet />`
-
+  /**
+   * The threshold in milliseconds that a route must be pending before its `pendingComponent` is shown.
+   *
+   * @default routerOptions.defaultPendingMs
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#pendingms-property)
+   */
   pendingMs?: number
+  /**
+   * The minimum amount of time in milliseconds that the pending component will be shown for if it is shown. This is useful to prevent the pending component from flashing on the screen for a split second.
+   *
+   * @default routerOptions.defaultPendingMinMs
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#pendingminms-property)
+   */
   pendingMinMs?: number
+  /**
+   * The amount of time in milliseconds that a route match's loader data will be considered fresh. If a route match is matched again within this time frame, its loader data will not be reloaded.
+   *
+   * @default routerOptions.defaultStaleTime
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#staletime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#using-staletime-to-control-how-long-data-is-considered-fresh)
+   */
   staleTime?: number
+  /**
+   * The amount of time in milliseconds that a route match's loader data will be kept in memory after a preload or after it is no longer in use.
+   *
+   * @default routerOptions.defaultGcTime
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#gctime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#using-shouldreload-and-gctime-to-opt-out-of-caching)
+   */
   gcTime?: number
+  /**
+   * If `false`, this route will opt out of preloading.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#preload-property)
+   */
   preload?: boolean
+  /**
+   * The amount of time in milliseconds that this route match's loader data will be considered fresh when preloading. If this route match is preloaded again within this time frame, its loader data will not be reloaded. If this route match is loaded (for navigation) within this time frame, the normal `staleTime` is used instead.
+   *
+   * @default routerOptions.defaultPreloadStaleTime
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#preloadstaletime-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/preloading#built-in-preloading--preloadstaletime)
+   */
   preloadStaleTime?: number
+  /**
+   * The amount of time in milliseconds that a route match's loader data will be kept in memory when preloading.
+   *
+   * @default routerOptions.defaultPreloadGcTime
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#preloadgctime-property)
+   */
   preloadGcTime?: number
+  /**
+   * Search options for the route.
+   *
+   * Allows defining search middlewares, which are functions that transform the search parameters when generating new links for a route or its descendants.
+   */
   search?: {
+    /**
+     * Search middlewares are functions that transform the search parameters when generating new links for a route or its descendants.
+     *
+     * Search middlewares run in order and each receives the current `search` object and a `next` function. The `next` function invokes the next middleware in the chain and returns its result, allowing you to chain multiple middlewares together.
+     *
+     * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#searchmiddlewares-property)
+     * @link [Guide](https://tanstack.com/router/latest/docs/guide/search-params#transforming-search-with-search-middlewares)
+     */
     middlewares?: Array<
       SearchMiddleware<
         ResolveFullSearchSchemaInput<TParentRoute, TSearchValidator>
@@ -1298,10 +1444,28 @@ export interface UpdatableRouteOptions<
   postSearchFilters?: Array<
     SearchFilter<ResolveFullSearchSchema<TParentRoute, TSearchValidator>>
   >
+  /**
+   * A function that will be called when errors are caught when the route encounters an error.
+   *
+   * @default routerOptions.defaultOnCatch
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#oncatch-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#handling-errors)
+   */
   onCatch?: (error: Error) => void
+  /**
+   * A function that will be called when an error is thrown during a navigation or preload event.
+   *
+   * If this function throws a `redirect`, then the router will process and apply the redirect immediately.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#onerror-property)
+   * @link [Guide](https://tanstack.com/router/latest/docs/guide/data-loading#handling-errors)
+   */
   onError?: (err: any) => void
-  // These functions are called as route matches are loaded, stick around and leave the active
-  // matches
+  /**
+   * A function that will be called when a route is matched and loaded after not being matched in the previous location.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#onenter-property)
+   */
   onEnter?: (
     match: RouteMatch<
       TRouteId,
@@ -1318,6 +1482,11 @@ export interface UpdatableRouteOptions<
       TLoaderDeps
     >,
   ) => void
+  /**
+   * A function that will be called when a route is matched and loaded after being matched in the previous location.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#onstay-property)
+   */
   onStay?: (
     match: RouteMatch<
       TRouteId,
@@ -1334,6 +1503,11 @@ export interface UpdatableRouteOptions<
       TLoaderDeps
     >,
   ) => void
+  /**
+   * A function that will be called when a route is no longer matched after being matched in the previous location.
+   *
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/RouteOptionsType#onleave-property)
+   */
   onLeave?: (
     match: RouteMatch<
       TRouteId,
@@ -1993,7 +2167,7 @@ export class BaseRoute<
    * Enables relative redirects like `Route.redirect({ to: './overview' })`.
    * @param opts Redirect options (same as `redirect()` but without `from`)
    * @returns A redirect Response that can be thrown from loaders/beforeLoad
-   * @link https://tanstack.com/router/latest/docs/framework/react/api/router/redirectFunction
+   * @link https://tanstack.com/router/latest/docs/api/router/redirectFunction
    */
   redirect: RedirectFnRoute<TFullPath> = (opts) =>
     redirect({ from: this.fullPath, ...opts } as any)
@@ -2015,7 +2189,7 @@ export class BaseRouteApi<TId, TRouter extends AnyRouter = RegisteredRouter> {
    * Enables relative redirects like `routeApi.redirect({ to: './overview' })`.
    * @param opts Redirect options (same as `redirect()` but without `from`)
    * @returns A redirect Response that can be thrown from loaders/beforeLoad
-   * @link https://tanstack.com/router/latest/docs/framework/react/api/router/redirectFunction
+   * @link https://tanstack.com/router/latest/docs/api/router/redirectFunction
    */
   redirect: RedirectFnRoute<RouteTypesById<TRouter, TId>['fullPath']> = (
     opts,
