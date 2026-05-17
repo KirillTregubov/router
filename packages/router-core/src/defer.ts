@@ -37,7 +37,7 @@ export type DeferredPromise<T> = Promise<T> & {
  * @param options Optional config. Provide `serializeError` to customize how
  * errors are serialized for transfer.
  * @returns The same promise with attached deferred metadata.
- * @link https://tanstack.com/router/latest/docs/framework/react/api/router/deferFunction
+ * @link https://tanstack.com/router/latest/docs/api/router/deferFunction
  */
 export function defer<T>(
   _promise: Promise<T>,

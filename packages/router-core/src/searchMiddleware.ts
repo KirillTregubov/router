@@ -11,7 +11,7 @@ import type { IsRequiredParams } from './link'
  *
  * @param keys `true` to retain all, or a list of keys to retain.
  * @returns A search middleware suitable for route `search.middlewares`.
- * @link https://tanstack.com/router/latest/docs/framework/react/api/router/retainSearchParamsFunction
+ * @link https://tanstack.com/router/latest/docs/api/router/retainSearchParamsFunction
  */
 export function retainSearchParams<TSearchSchema extends object>(
   keys: Array<keyof TSearchSchema> | true,
@@ -40,7 +40,7 @@ export function retainSearchParams<TSearchSchema extends object>(
  * - Pass an object of default values; keys equal (deeply) to the defaults are removed.
  *
  * @returns A search middleware suitable for route `search.middlewares`.
- * @link https://tanstack.com/router/latest/docs/framework/react/api/router/stripSearchParamsFunction
+ * @link https://tanstack.com/router/latest/docs/api/router/stripSearchParamsFunction
  */
 export function stripSearchParams<
   TSearchSchema,

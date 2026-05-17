@@ -296,7 +296,7 @@ export type NavigateOptions<
 
 /**
  * The NavigateOptions type is used to describe the options that can be used when describing a navigation action in TanStack Router.
- * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType)
+ * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType)
  */
 export interface NavigateOptionProps {
   /**
@@ -304,21 +304,21 @@ export interface NavigateOptionProps {
    * If set to `false`, the router will not scroll the element with an id matching the hash into view.
    * If set to `ScrollIntoViewOptions`, the router will scroll the element with an id matching the hash into view with the provided options.
    * @default true
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#hashscrollintoview)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#hashscrollintoview)
    * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
    */
   hashScrollIntoView?: boolean | ScrollIntoViewOptions
   /**
    * `replace` is a boolean that determines whether the navigation should replace the current history entry or push a new one.
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#replace)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#replace)
    */
   replace?: boolean
   /**
    * Defaults to `true` so that the scroll position will be reset to 0,0 after the location is committed to the browser history.
    * If `false`, the scroll position will not be reset to 0,0 after the location is committed to history.
    * @default true
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#resetscroll)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#resetscroll)
    */
   resetScroll?: boolean
   /** @deprecated All navigations now use startTransition under the hood */
@@ -331,7 +331,7 @@ export interface NavigateOptionProps {
    *
    * If the browser does not support this api, this option will be ignored.
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#viewtransition)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#viewtransition)
    * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition)
    * @see [Google](https://developer.chrome.com/docs/web-platform/view-transitions/same-document#view-transition-types)
    */
@@ -339,18 +339,18 @@ export interface NavigateOptionProps {
   /**
    * If `true`, navigation will ignore any blockers that might prevent it.
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#ignoreblocker)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#ignoreblocker)
    */
   ignoreBlocker?: boolean
   /**
    * If `true`, navigation to a route inside of router will trigger a full page load instead of the traditional SPA navigation.
    * @default false
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#reloaddocument)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#reloaddocument)
    */
   reloadDocument?: boolean
   /**
    * This can be used instead of `to` to navigate to a fully built href, e.g. pointing to an external target.
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#href)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#href)
    */
   href?: string
   /** @internal */
@@ -399,7 +399,7 @@ export interface RequiredToOptions<
    * The internal route path to navigate to. This should be a relative or absolute path within your application.
    * For external URLs, use the `href` property instead.
    * @example "/dashboard" or "../profile"
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#href)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#href)
    */
   to: ToPathOption<TRouter, TFrom, TTo> & {}
 }
@@ -413,7 +413,7 @@ export interface OptionalToOptions<
    * The internal route path to navigate to. This should be a relative or absolute path within your application.
    * For external URLs, use the `href` property instead.
    * @example "/dashboard" or "../profile"
-   * @link [API Docs](https://tanstack.com/router/latest/docs/framework/react/api/router/NavigateOptionsType#href)
+   * @link [API Docs](https://tanstack.com/router/latest/docs/api/router/NavigateOptionsType#href)
    */
   to?: ToPathOption<TRouter, TFrom, TTo> & {}
 }
@@ -632,7 +632,7 @@ export type FromPathOption<TRouter extends AnyRouter, TFrom> = ConstrainLiteral<
 >
 
 /**
- * @link [Guide](https://tanstack.com/router/latest/docs/framework/react/guide/navigation#active-options)
+ * @link [Guide](https://tanstack.com/router/latest/docs/guide/navigation#active-options)
  */
 export interface ActiveOptions {
   /**
